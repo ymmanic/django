@@ -1,0 +1,233 @@
+Django
+python framework:
+-is generic structure, code maintainability is easy.
+-used to built web applications.
+-it allows us to focus on application logic
+ rather than investing time to create the thigs from scratch.
+Features of Django framework:
+1. Battery included approach:
+-Django comes with a lot of components that are ready for use.
+-most of the fucntions required by developer are already avaialable
+2.Rapid Development:
+-Django provides an easy way to build complex applications quickly.
+3.Security:
+-Django has powerful security features which helps protect your site against common threats such as SQL injection and cross site scripting (XSS).
+4.Scable:
+-Django apps can be reusable across different projects.
+-can be used smoothly as the number of users increases.
+5.Admin Interface:
+6.REST framework for API:
+-allows developers to expose their data through HTTP requests and responses.
+
+How to start using Django?
+1.Install Django:
+-pip install django (recommended)
+-download it from official website(https://www.djangoproject.com/download/)
+2.Create new project:
+-django-admin startproject mysite
+3.Start server:
+-cd mysite
+-python manage.py runserver
+4.Open browser and go to http://localhost:8000
+You should see "Welcome to Django" message if everything goes well.
+5.Stop Server Ctrl+C
+Now you have your first Django Project running.
+Next Steps:
+1.Understand Django's File Structure.
+2.Learn about Django's URL Dispatcher which will help in mapping URLs to views.
+3.Read more about Views, Templates and Forms.
+4.Build something simple like a poll app or blog app.
+What is MVC Framework?
+MVC stands for Model - View - Controller. It’s a design pattern that separates an application into three main components for easier management and maintenance.
+
+
+===================
+Step1:
+ Install virtual module 
+ pip install virtualenv 
+ Step2: create virtual environment
+ virtualenv env
+ if error: python -m virtualenv env
+ Step3: 
+ Install django
+1.activate virtual environment
+   env\Scripts\activate 
+2. Install django
+   pip install django
+3. create project in django
+   django-admin startproject projectname
+   e.g. django-admin startproject ecomm
+4. create application
+   python manage.py startapp appname
+   e.g. python manage.py startapp ecommapp
+
+=========================
+Webapplication requires:
+   1.browser
+   2.server 
+
+   command to start server: 
+        python manage.py reunserver 
+
+================================================================================================
+settings.py
+-Include your application name in INSTALLED_APPS section followed by comma.
+================================================================================================
+Django Architecture: MVT 
+Model View Templates
+Model: representation of tables in database.
+      model in django-table in database.
+View: responsible to give responses to the client.
+      is views.py file in django application.
+      are logic(python code) for application.
+  2 Types of view:
+      1.Function based.
+      2.Class based view.
+
+Templates:
+         user frontend
+         is representative layer of your application.
+         they are html files.
+
+====================================================================================================
+Templates                                          views.py
+Forms
+name:-
+rollno:- =========> data is extracted here======> data inserted into db tables
+save                                                       |
+                                                           |
+                                                           |
+                                                           |
+                                                           |
+data displayed into 
+form                        <====data from db      <======select query 
+
+=================================================================================================
+Request response cycle:
+request comes -> 
+view gets request and returns response->
+step1: client===============================> Django Server
+                       request
+            http://127.0.0.1:8000/about
+            http://127.0.0.1:8000/contacts               based on last part we will get the web page.
+
+Step2: when client sends request, server map requested url with urlpattern list of urls.py file.
+       if it matches then call respective function otherwise return error404.
+       server will map only last part i.e. about,contacts,login.
+
+client===============================>server
+if received url==url pattern in urls.py file in project folder 
+                |
+                |     (if)True
+                |
+                |
+        moves to views.py file of application folder 
+                |
+                |
+                |
+                |
+      call a function linked with url
+      and return response to client 
+views.py provides response with the help of functions
+syntax:
+      def functionname(request):
+         body of function
+         return response
+
+
+1.HttpsResponse()
+  -This class represents HTTP Response sent by server to client.
+ cannot send html file to browser
+2.render()
+ -This method takes template name as argument and context dictionary as another argument. used to return 
+ html files as a response to client.
+syntax: 
+   render(request,'filename.html',data)
+
+   Step1: html files are stored in templates  so create under the project root folder.
+
+   Step2: inside templates folder create a html file 
+     e.g.index.html
+
+in settings.py 
+import os 
+TEMPLATES=[
+   'DIRS': [os.path.join(BASE_DIR,'templates')],
+]
+BASE_DIR ---->show relative path
+#3.HttpResponseRedirect()
+==================================================================================================
+Passing Parameter or values through URLs
+==================================================================================================
+Programming concepts:
+
+Procedural programming system                                   Object Oriented Programming system 
+
+
+everything is in form of funtions.                               is in form of class. 
+eg:functions based views.                                        eg:class based views.
+
+===================================================================================================
+Class based view:
+-In this view a class is defined which is inherited from inbuilt django 
+class View(V is capital)
+
+views.py 
+Step1: Import View class from django.views
+Step2: define view class as follows:
+          class ViewClassName(view):
+            def get(self,request)
+              body of method
+              return response  
+            def post(self,request):
+              body of method 
+              return response
+
+         from django.views import View
+           class SimpleView(view):
+                 def get(self,request)
+                 return HttpResponse("Hello world!")
+Step3: In urls.py
+    from ecommapp.views import SimpleView
+    path('myview',SimpleView.as_view()),
+
+===================================================================================================
+Redirect from one url to another url 
+redirect()    -this is inbuilt function 
+
+syntax:
+      redirect('url name')
+
+e.g.in urls.py
+     path('page1',views.page2)
+     path('page2',views.page1),
+
+    in views.py
+     def page2(request):
+        return redirect('/page2)
+     def page1(request):
+        return render(request,'index.html')
+===================================================================================================
+DTL (Django Template Language)
+
+To implement following programming language concept.
+In HTML there is DTL:
+1. Variable Interpolation
+<h1>{{variable}}</h1>
+
+2.Decison control Architecture
+{% if variable %}
+
+3.Loop control structure.
+{% for item in items %}
+
+4.Reusability.
+
+5.Template inheritance.
+{% extends 'base.html'%}   ---> base.html will be the parent template
+
+-data from view to html file is always send to dictionary.
+-though the data is passed as dictionary,that data is accessed with the help of key in html file as:
+    {{keyname}}
+
+   
